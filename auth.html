@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>로그인 — RED&BLUE</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="auth-page">
+
+  <main class="auth-page-wrap">
+    <a href="index.html" class="auth-logo-link">RED&BLUE</a>
+
+    <div class="auth-box">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login">로그인</button>
+        <button class="auth-tab" id="tab-signup">회원가입</button>
+      </div>
+
+      <div class="auth-form" id="form-login">
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="email" id="login-email" placeholder="email@example.com" />
+        </div>
+        <div class="form-group">
+          <label>비밀번호</label>
+          <input type="password" id="login-password" placeholder="비밀번호 입력" />
+        </div>
+        <p class="auth-error" id="login-error"></p>
+        <button class="btn-auth-submit" id="btn-login">로그인</button>
+      </div>
+
+      <div class="auth-form hidden" id="form-signup">
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="email" id="signup-email" placeholder="email@example.com" />
+        </div>
+        <div class="form-group">
+          <label>비밀번호</label>
+          <input type="password" id="signup-password" placeholder="6자 이상" />
+        </div>
+        <div class="form-group">
+          <label>닉네임</label>
+          <input type="text" id="signup-nickname" placeholder="닉네임 입력" />
+        </div>
+        <div class="form-group">
+          <label>나이</label>
+          <input type="number" id="signup-age" placeholder="나이" min="18" max="99" />
+        </div>
+        <div class="form-group">
+          <label>성별</label>
+          <select id="signup-gender">
+            <option value="">선택</option>
+            <option value="male">남성</option>
+            <option value="female">여성</option>
+            <option value="other">기타</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>한줄소개</label>
+          <input type="text" id="signup-bio" placeholder="나를 한 문장으로 소개해보세요" />
+        </div>
+        <p class="auth-error" id="signup-error"></p>
+        <button class="btn-auth-submit" id="btn-signup">회원가입</button>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>
