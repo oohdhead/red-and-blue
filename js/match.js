@@ -4,6 +4,11 @@ import {
   collection, getDocs, doc, getDoc, updateDoc, setDoc
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
+onAuthStateChanged(auth, (user) => {
+  const icon = document.getElementById('nav-profile-icon');
+  if (icon) icon.classList.toggle('hidden', !user);
+});
+
 // 강제 로그아웃
 window.addEventListener('keydown', async (e) => {
   if (e.key === 'F1') {

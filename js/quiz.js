@@ -22,6 +22,9 @@ let uid = null; //userid
 const answers = new Array(questions.length).fill(null);
 
 onAuthStateChanged(auth, (user) => {
+  const icon = document.getElementById('nav-profile-icon');
+  if (icon) icon.classList.toggle('hidden', !user);
+  
   if (!user) { window.location.href = 'auth.html'; return; } // 로그인 안했으면
   uid = user.uid;
   renderQuestions();

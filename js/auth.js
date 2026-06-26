@@ -2,7 +2,8 @@ import { auth, db } from './firebase-config.js';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import {
   doc, setDoc, getDoc
@@ -10,6 +11,9 @@ import {
 
 // 이미 로그인 상태면 매칭 페이지로
 onAuthStateChanged(auth, async (user) => {
+  const icon = document.getElementById('nav-profile-icon');
+  if (icon) icon.classList.toggle('hidden', !user);
+  
   if (user) {
     const snap = await getDoc(doc(db, 'users', user.uid));
     if (snap.exists() && snap.data().x !== undefined) {
@@ -101,6 +105,6 @@ window.addEventListener('keydown', async (e) => {
     e.preventDefault();
     alert('개발자모드: 1 입력됨. 로그아웃 실행');
     await signOut(auth);
-    location.reload();
+    window.location.href = 'index.html';
   }
 });
