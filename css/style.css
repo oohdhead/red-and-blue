@@ -156,6 +156,7 @@ body {
   box-shadow: var(--box-shadow);
   animation: fadeUp 0.8s ease forwards;
   animation-delay: 0.1s;  
+  text-decoration: none;
 }
 
 .btn-signup{

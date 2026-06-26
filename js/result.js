@@ -1,6 +1,7 @@
 import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { getCompassColor } from './utils.js';
 
 onAuthStateChanged(auth, async (user) => {
   const icon = document.getElementById('nav-profile-icon');
@@ -18,13 +19,7 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 function applyBg(x) {
-  const from = [0x97, 0x7E, 0xFF]; // #977EFF (x 작을수록)
-  const to   = [0xFF, 0x95, 0x95]; // #FF9595 (x 클수록)
-  const t = (x + 1) / 2;
-  const r = Math.round(from[0] + (to[0] - from[0]) * t);
-  const g = Math.round(from[1] + (to[1] - from[1]) * t);
-  const b = Math.round(from[2] + (to[2] - from[2]) * t);
-  document.body.style.background = `rgb(${r},${g},${b})`;
+  document.body.style.background = getCompassColor(x);
 }
 
 function applyLabel(x, y) {
