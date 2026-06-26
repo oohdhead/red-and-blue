@@ -1,42 +1,49 @@
-// x: -100(진보) ~ +100(보수), y: -100(권위) ~ +100(자유)
-// localStorage에서 quiz 결과 읽어옴 (quiz.js가 저장해놓은 값 사용)
-const scores = JSON.parse(localStorage.getItem('quizResult') || '{"x":0,"y":0}');
-const x = Math.max(-100, Math.min(100, scores.x));
-const y = Math.max(-100, Math.min(100, scores.y));
+import { auth, db } from './firebase-config.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-// 배경색: x=-100 → #977EFF, x=+100 → #FF9595
-function hexToRgb(hex) {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return [r, g, b];
+onAuthStateChanged(auth, async (user) => {
+  const icon = document.getElementById('nav-profile-icon');
+  if (icon) icon.classList.toggle('hidden', !user);
+
+  if (!user) { window.location.href = 'auth.html'; return; }
+
+  const snap = await getDoc(doc(db, 'users', user.uid));
+  const { x = 0, y = 0 } = snap.data() || {};
+  // x, y 범위: -1(진보/권위) ~ +1(보수/자유)
+
+  applyBg(x);
+  applyLabel(x, y);
+  applyDot(x, y);
+});
+
+function applyBg(x) {
+  const from = [0x97, 0x7E, 0xFF]; // #977EFF (x 작을수록)
+  const to   = [0xFF, 0x95, 0x95]; // #FF9595 (x 클수록)
+  const t = (x + 1) / 2;
+  const r = Math.round(from[0] + (to[0] - from[0]) * t);
+  const g = Math.round(from[1] + (to[1] - from[1]) * t);
+  const b = Math.round(from[2] + (to[2] - from[2]) * t);
+  document.body.style.background = `rgb(${r},${g},${b})`;
 }
-function lerp(a, b, t) { return Math.round(a + (b - a) * t); }
 
-const colorLeft = hexToRgb('#977EFF'); // x 작을수록
-const colorRight = hexToRgb('#FF9595'); // x 클수록
-const t = (x + 100) / 200; // 0~1
-const bg = `rgb(${lerp(colorLeft[0], colorRight[0], t)}, ${lerp(colorLeft[1], colorRight[1], t)}, ${lerp(colorLeft[2], colorRight[2], t)})`;
-document.body.style.background = bg;
+function applyLabel(x, y) {
+  const xTag = x < -0.2 ? '진보' : x > 0.2 ? '보수' : null;
+  const yTag = y < -0.2 ? '권위' : y > 0.2 ? '자유' : null;
 
-// 레이블 텍스트
-function getLabel(x, y) {
-  const xSide = x < -20 ? '진보' : x > 20 ? '보수' : '중도';
-  const ySide = y < -20 ? '권위주의' : y > 20 ? '자유주의' : '중도';
-  if (xSide === '중도' && ySide === '중도') return '중도';
-  if (xSide === '중도') return ySide;
-  if (ySide === '중도') return xSide;
-  return `${ySide} ${xSide}`;
+  let label;
+  if (!xTag && !yTag) label = '중도';
+  else if (!xTag) label = yTag;
+  else if (!yTag) label = xTag;
+  else label = `${xTag} ${yTag}`;
+
+  document.getElementById('result-label').textContent = `당신은 ${label}주의자입니다`;
 }
-document.getElementById('result-label').textContent = `당신은 ${getLabel(x, y)}주의자입니다`;
 
-// 점수 표시
-document.getElementById('score-x').textContent = x > 0 ? `+${x}` : `${x}`;
-document.getElementById('score-y').textContent = y > 0 ? `+${y}` : `${y}`;
-
-// 나침반 점 위치 (left: 0%=진보, 100%=보수 / top: 0%=권위, 100%=자유)
-const dotX = ((x + 100) / 200) * 100;
-const dotY = ((-y + 100) / 200) * 100; // y+ = 자유 = 아래
-const dot = document.getElementById('compass-dot');
-dot.style.left = `${dotX}%`;
-dot.style.top = `${dotY}%`;
+function applyDot(x, y) {
+  const dot = document.getElementById('compass-dot');
+  // left 0% = 진보(-1), 100% = 보수(+1)
+  // top  0% = 권위(-1), 100% = 자유(+1)
+  dot.style.left = `${((x + 1) / 2) * 100}%`;
+  dot.style.top  = `${((-y + 1) / 2) * 100}%`;
+}

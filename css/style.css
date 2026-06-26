@@ -441,8 +441,7 @@ body {
    RESULT PAGE
    =========================== */
 .result-page {
-  background: #c8a0ef; /* JS로 덮어씀 */
-  transition: background 0.6s ease;
+  background: #c8a0ef; /* JS가 x값 기반으로 덮어씀 */
 }
 
 .result-page-wrap {
@@ -464,12 +463,11 @@ body {
 
 .result-box {
   background: #ffffff;
-  color: #1a1a1a;
   border-radius: var(--radius);
   box-shadow: var(--box-shadow);
-  padding: 40px 36px;
+  padding: 36px 32px;
   width: 100%;
-  max-width: 480px;
+  max-width: 400px;
   animation: fadeUp 0.7s ease 0.1s both;
 }
 
@@ -477,96 +475,51 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 28px;
+  gap: 8px;
 }
 
-.compass-row {
+.compass-middle-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.compass-label {
+.compass-edge-label {
   font-size: 12px;
-  color: #aaa;
+  color: #bbb;
   font-weight: 600;
-  width: 48px;
+  width: 44px;
   text-align: center;
 }
-.compass-label.top, .compass-label.bottom { width: auto; }
 
 .compass {
-  width: 240px;
-  height: 240px;
-  border: 2px solid #e8e8e8;
+  width: 260px;
+  height: 260px;
+  border: 1.5px solid #e8e8e8;
   border-radius: 8px;
   position: relative;
   background: #fafafa;
   overflow: hidden;
 }
 
-.compass-grid {
+.compass-line {
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(#e8e8e8 1px, transparent 1px),
-    linear-gradient(90deg, #e8e8e8 1px, transparent 1px);
-  background-size: 60px 60px;
+  background: #e0e0e0;
 }
-.compass-grid::before {
-  content: '';
-  position: absolute;
-  left: 50%; top: 0; bottom: 0;
-  width: 1px;
-  background: #ccc;
-}
-.compass-grid::after {
-  content: '';
-  position: absolute;
-  top: 50%; left: 0; right: 0;
-  height: 1px;
-  background: #ccc;
-}
+.compass-line.h { left: 0; right: 0; top: 50%; height: 1px; }
+.compass-line.v { top: 0; bottom: 0; left: 50%; width: 1px; }
 
 .compass-dot {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #FF9595, #977EFF);
+  background: linear-gradient(135deg, #977EFF, #FF9595);
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 3px #fff, 0 0 0 5px rgba(151,126,255,0.4);
-  transition: left 0.6s ease, top 0.6s ease;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px rgba(151,126,255,0.35);
   left: 50%;
   top: 50%;
-}
-
-.result-scores {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.score-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
-  background: #f7f7f7;
-  border-radius: 8px;
-}
-
-.score-label {
-  font-size: 13px;
-  color: #888;
-  font-weight: 600;
-}
-
-.score-value {
-  font-size: 18px;
-  font-weight: 800;
-  color: #1a1a1a;
+  transition: left 0.5s ease, top 0.5s ease;
 }
 
 .result-retry {
@@ -576,7 +529,7 @@ body {
 }
 
 @media (max-width: 600px) {
-  .compass { width: 180px; height: 180px; }
+  .compass { width: 200px; height: 200px; }
   .result-box { padding: 28px 20px; }
   .result-label { font-size: 24px; }
 }

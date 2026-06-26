@@ -16,54 +16,27 @@
   </nav>
 
   <div class="result-page-wrap">
-    <p class="result-label" id="result-label">···주의자입니다</p>
+    <p class="result-label" id="result-label">결과 불러오는 중…</p>
 
     <div class="result-box">
-      <div class="result-chart-area">
-        <div class="result-axis">
-          <span class="axis-left">진보</span>
-          <div class="axis-track">
-            <div class="axis-dot" id="x-dot"></div>
+      <div class="result-compass-wrap">
+        <span class="compass-edge-label">권위주의</span>
+        <div class="compass-middle-row">
+          <span class="compass-edge-label">진보</span>
+          <div class="compass" id="compass">
+            <div class="compass-line h"></div>
+            <div class="compass-line v"></div>
+            <div class="compass-dot" id="compass-dot"></div>
           </div>
-          <span class="axis-right">보수</span>
+          <span class="compass-edge-label">보수</span>
         </div>
-        <div class="result-axis">
-          <span class="axis-left">권위</span>
-          <div class="axis-track vertical">
-            <div class="axis-dot" id="y-dot"></div>
-          </div>
-          <span class="axis-right">자유</span>
-        </div>
-
-        <div class="result-compass-wrap">
-          <div class="compass-label top">권위주의</div>
-          <div class="compass-row">
-            <div class="compass-label left">진보</div>
-            <div class="compass" id="compass">
-              <div class="compass-grid"></div>
-              <div class="compass-dot" id="compass-dot"></div>
-            </div>
-            <div class="compass-label right">보수</div>
-          </div>
-          <div class="compass-label bottom">자유주의</div>
-        </div>
-      </div>
-
-      <div class="result-scores" id="result-scores">
-        <div class="score-item">
-          <span class="score-label">경제 (좌←→우)</span>
-          <span class="score-value" id="score-x">—</span>
-        </div>
-        <div class="score-item">
-          <span class="score-label">사회 (권위←→자유)</span>
-          <span class="score-value" id="score-y">—</span>
-        </div>
+        <span class="compass-edge-label">자유주의</span>
       </div>
     </div>
 
     <a href="quiz.html" class="btn-primary result-retry">다시 하기</a>
   </div>
 
-  <script src="js/result.js"></script>
+  <script type="module" src="js/result.js"></script>
 </body>
 </html>
