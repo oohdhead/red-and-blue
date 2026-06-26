@@ -929,3 +929,8 @@ body.chat-page {
   color: #1a1a1a;
   margin-bottom: 20px;
 }
+
+.profile-modal .btn-outline {
+  color: #555;
+  border-color: #e0e0e0;
+}
