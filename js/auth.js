@@ -45,7 +45,7 @@ if (new URLSearchParams(location.search).get('tab') === 'signup') {
   tabSignup.click();
 }
 
-// 로그인
+// 로그인 탭
 document.getElementById('btn-login').addEventListener('click', async () => {
   const email    = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
@@ -59,7 +59,7 @@ document.getElementById('btn-login').addEventListener('click', async () => {
   }
 });
 
-// 회원가입
+// 회원가입 탭
 document.getElementById('btn-signup').addEventListener('click', async () => {
   const email    = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value;
@@ -82,6 +82,7 @@ document.getElementById('btn-signup').addEventListener('click', async () => {
       showCompass: true,
       createdAt: Date.now()
     });
+    alert('계정이 생성되었습니다');
     window.location.href = 'quiz.html';
   } catch (e) {
     if (e.code === 'auth/email-already-in-use') {
@@ -96,7 +97,8 @@ document.getElementById('btn-signup').addEventListener('click', async () => {
 
 // 강제 로그아웃
 window.addEventListener('keydown', async (e) => {
-  if (e.key === '1') {
+  if (e.key === 'F1') {
+    e.preventDefault();
     alert('개발자모드: 1 입력됨. 로그아웃 실행');
     await signOut(auth);
     location.reload();

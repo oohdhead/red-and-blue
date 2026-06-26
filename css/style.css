@@ -298,12 +298,14 @@ body {
   font-size: 30px;
   font-weight: 800;
   margin-bottom: 14px;
+  text-shadow:var(--text-shadow);
 }
  
 .quiz-main-sub {
   font-size: 15px;
   color: rgba(255,255,255,0.85);
   line-height: 1.6;
+  text-shadow:var(--text-shadow);
 }
  
 .quiz-sheet {
