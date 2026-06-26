@@ -1,6 +1,8 @@
 import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { toggleNavIcon } from './utils.js';
+import { initProfileModal } from './profile-modal.js';
 
 const questions = [
   { axis: 'x', text: '부유층에 대한 세금을 높여 복지를 확대해야 한다.' },
@@ -22,8 +24,7 @@ let uid = null; //userid
 const answers = new Array(questions.length).fill(null);
 
 onAuthStateChanged(auth, (user) => {
-  const icon = document.getElementById('nav-profile-icon');
-  if (icon) icon.classList.toggle('hidden', !user);
+  toggleNavIcon(user);
   
   if (!user) { window.location.href = 'auth.html'; return; } // 로그인 안했으면
   uid = user.uid;
@@ -117,3 +118,5 @@ window.addEventListener('keydown', async (e) => {
     window.location.href = 'index.html';
   }
 });
+
+initProfileModal();

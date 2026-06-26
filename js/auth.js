@@ -8,11 +8,12 @@ import {
 import {
   doc, setDoc, getDoc
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { toggleNavIcon } from './utils.js';
+import { initProfileModal } from './profile-modal.js';
 
 // 이미 로그인 상태면 매칭 페이지로
 onAuthStateChanged(auth, async (user) => {
-  const icon = document.getElementById('nav-profile-icon');
-  if (icon) icon.classList.toggle('hidden', !user);
+  toggleNavIcon(user);
   
   if (user) {
     const snap = await getDoc(doc(db, 'users', user.uid));
@@ -108,3 +109,5 @@ window.addEventListener('keydown', async (e) => {
     window.location.href = 'index.html';
   }
 });
+
+initProfileModal();

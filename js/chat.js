@@ -1,4 +1,5 @@
 import { auth, db, rtdb } from './firebase-config.js';
+import { initProfileModal } from './profile-modal.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-database.js";
 import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
@@ -65,3 +66,5 @@ document.getElementById('btn-send').addEventListener('click', sendMessage);
 document.getElementById('chat-input').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') sendMessage();
 });
+
+initProfileModal();

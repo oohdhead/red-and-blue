@@ -3,15 +3,15 @@ import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/
 import {
   collection, getDocs, doc, getDoc, updateDoc, setDoc, query, where, onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-import { getCompassColor } from './utils.js';
+import { getCompassColor, toggleNavIcon } from './utils.js';
+import { initProfileModal } from './profile-modal.js';
 
 let myUid = null;
 let myProfile = null;
 let matchUsers = [];
 
 onAuthStateChanged(auth, async (user) => {
-  const icon = document.getElementById('nav-profile-icon');
-  if (icon) icon.classList.toggle('hidden', !user);
+  toggleNavIcon(user);
 
   if (!user) { window.location.href = 'auth.html'; return; }
   myUid = user.uid;
@@ -213,3 +213,5 @@ window.addEventListener('keydown', async (e) => {
     window.location.href = 'index.html';
   }
 });
+
+initProfileModal();

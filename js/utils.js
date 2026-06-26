@@ -8,3 +8,8 @@ export function getCompassColor(x) {
   const b = Math.round(from[2] + (to[2] - from[2]) * t);
   return `rgb(${r},${g},${b})`;
 }
+
+export function toggleNavIcon(user) {
+  const icon = document.getElementById('nav-profile-icon');
+  if (icon) icon.classList.toggle('hidden', !user);
+}

@@ -854,3 +854,81 @@ body.chat-page {
 .chat-input-bar .btn-primary {
   padding: 10px 20px;
 }
+
+/* ===========================
+   RESULT BUTTONS
+   =========================== */
+.result-btn-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  animation: fadeUp 0.7s ease 0.2s both;
+}
+
+.result-retry-btn {
+  background: #f0f0f0;
+  color: #555;
+}
+.result-retry-btn:hover { background: #e0e0e0; }
+
+/* ===========================
+   PROFILE MODAL
+   =========================== */
+.profile-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.profile-modal {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  width: 90%;
+  max-width: 380px;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #999;
+}
+.modal-close:hover { color: #1a1a1a; }
+
+.profile-modal-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 20px;
+  margin: 0 auto 12px;
+}
+
+.profile-modal-name {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+}
+
+.profile-modal .btn-outline.full {
+  color: #888;
+  border-color: #e4e4e4;
+  margin-top: 8px;
+}

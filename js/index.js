@@ -1,9 +1,10 @@
 import { auth } from './firebase-config.js';
-import { onAuthStateChanged, signOut} from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { toggleNavIcon } from './utils.js';
+import { initProfileModal } from './profile-modal.js';
 
 onAuthStateChanged(auth, (user) => {
-  const icon = document.getElementById('nav-profile-icon');
-  if (icon) icon.classList.toggle('hidden', !user);
+  toggleNavIcon(user);
 });
 
 // 강제 로그아웃
@@ -15,3 +16,5 @@ window.addEventListener('keydown', async (e) => {
     location.reload();
   }
 });
+
+initProfileModal();
