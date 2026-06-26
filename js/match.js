@@ -53,7 +53,7 @@ async function showMatchMain(mode) {
   listenChatList();
 }
 
-// ===== 매칭 후보 불러오기 (상위 20명) =====
+// 매칭 후보 불러오기 (상위 20명) 
 async function loadCandidates(mode) {
   const snapshot = await getDocs(collection(db, 'users'));
   let users = [];
@@ -92,13 +92,13 @@ function genderLabel(g) {
   return g === 'male' ? '남성' : g === 'female' ? '여성' : '기타';
 }
 
-// ===== 버블 렌더링 =====
+// 버블 렌더링 
 function renderBubbles(users, mode) {
   const area = document.getElementById('bubble-area');
   area.innerHTML = '';
 
-  const W = area.clientWidth  || 360;
-  const H = area.clientHeight || 420;
+  const W = area.clientWidth  || 760;
+  const H = area.clientHeight || 400;
 
   const maxDist = Math.max(...users.map(u => u.distance), 0.01);
   const minDist = Math.min(...users.map(u => u.distance));
@@ -131,11 +131,18 @@ function renderBubbles(users, mode) {
   });
 }
 
+// 사용자를 누르면 정보 표시
 function selectUser(u, bubbleEl) {
-  document.querySelectorAll('.bubble-item').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.bubble-item').forEach(b => {
+    b.classList.remove('selected');
+    b.style.zIndex = '';
+  });
   bubbleEl.classList.add('selected');
+  bubbleEl.style.zIndex = '10';
 
-  document.getElementById('bubble-detail').classList.remove('hidden');
+  document.getElementById('detail-placeholder').classList.add('hidden');
+  document.getElementById('detail-content').classList.remove('hidden');
+
   document.getElementById('detail-avatar').textContent = u.nickname?.[0]?.toUpperCase() || '?';
   document.getElementById('detail-avatar').style.background = getCompassColor(u.x);
   document.getElementById('detail-name').textContent = u.nickname || '익명';
@@ -146,7 +153,7 @@ function selectUser(u, bubbleEl) {
   document.getElementById('btn-chat-request').onclick = () => requestChat(u);
 }
 
-// ===== 채팅 신청 (버튼 눌렀을 때만 방 생성) =====
+// 채팅 신청 (버튼 눌렀을 때만 방 생성)
 async function requestChat(u) {
   const chatId = [myUid, u.uid].sort().join('_');
 

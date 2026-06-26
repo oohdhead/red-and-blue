@@ -13,7 +13,7 @@
       <img src="images/rnb_logo.png" alt="RED&BLUE 로고" />
       <span class="nav-logo-text">RED&BLUE</span>
     </a>
-    <button class="nav-profile-icon hidden" id="nav-profile-icon">👤</button>
+    <a href="profile.html" class="nav-profile-icon hidden" id="nav-profile-icon">👤</a>
   </nav>
 
   <!-- 모드 선택 화면 -->
@@ -46,13 +46,17 @@
 
         <div class="bubble-area" id="bubble-area"></div>
 
-        <div class="bubble-detail hidden" id="bubble-detail">
-          <div class="detail-avatar" id="detail-avatar">🙂</div>
-          <div class="detail-name" id="detail-name"></div>
-          <div class="detail-meta" id="detail-meta"></div>
-          <div class="detail-label" id="detail-label"></div>
-          <p class="detail-bio" id="detail-bio"></p>
-          <button class="btn-primary full" id="btn-chat-request">청문회 시작</button>
+        <div class="bubble-detail" id="bubble-detail">
+        <p class="detail-placeholder" id="detail-placeholder">버블을 선택하면 상세 정보가 표시됩니다.</p>
+
+        <div class="detail-content hidden" id="detail-content">
+            <div class="detail-avatar" id="detail-avatar">🙂</div>
+            <div class="detail-name" id="detail-name"></div>
+            <div class="detail-meta" id="detail-meta"></div>
+            <div class="detail-label" id="detail-label"></div>
+            <p class="detail-bio" id="detail-bio"></p>
+            <button class="btn-primary full" id="btn-chat-request">청문회 시작</button>
+        </div>
         </div>
       </section>
 
@@ -63,36 +67,6 @@
         </div>
       </section>
 
-    </div>
-  </div>
-
-  <div class="profile-modal-overlay hidden" id="profile-modal-overlay">
-    <div class="profile-modal">
-      <button class="modal-close" id="modal-close">✕</button>
-      <div class="profile-modal-avatar" id="modal-avatar">?</div>
-      <div class="profile-modal-name" id="modal-nickname">닉네임</div>
-      <div class="form-group">
-        <label>닉네임</label>
-        <input type="text" id="modal-edit-nickname" />
-      </div>
-      <div class="form-group">
-        <label>나이</label>
-        <input type="number" id="modal-edit-age" />
-      </div>
-      <div class="form-group">
-        <label>성별</label>
-        <select id="modal-edit-gender">
-          <option value="male">남성</option>
-          <option value="female">여성</option>
-          <option value="other">기타</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>한줄소개</label>
-        <input type="text" id="modal-edit-bio" />
-      </div>
-      <button class="btn-primary full" id="modal-btn-save">저장하기</button>
-      <button class="btn-outline full" id="modal-btn-logout">로그아웃</button>
     </div>
   </div>
 
