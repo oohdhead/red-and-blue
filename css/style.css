@@ -47,6 +47,7 @@ body {
   cursor: pointer;
   transition: background 0.2s;
   text-align: center;
+  text-decoration: none;
 }
 .btn-primary:hover { background: #e2e2e2; }
 .btn-primary.full { width: 100%; }
@@ -78,6 +79,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  border-bottom: 2px solid rgba(255,255,255,0.3);
 }
  
 .nav-logo {
@@ -151,7 +153,6 @@ body {
   cursor: pointer;
   transition: background 0.2s;
   text-align: center;
-  text-decoration: none; 
   box-shadow: var(--box-shadow);
   animation: fadeUp 0.8s ease forwards;
   animation-delay: 0.1s;  
@@ -522,14 +523,95 @@ body {
   transition: left 0.5s ease, top 0.5s ease;
 }
 
-.result-retry {
+.result-btn-row {
+  display: flex;
+  gap: 12px;
   margin-top: 28px;
-  text-decoration: none;
   animation: fadeUp 0.7s ease 0.2s both;
 }
+
+.result-retry-btn {
+  background: rgba(240, 240, 240, 0.8);
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.result-retry-btn:hover { background: #e0e0e0; }
 
 @media (max-width: 600px) {
   .compass { width: 200px; height: 200px; }
   .result-box { padding: 28px 20px; }
   .result-label { font-size: 24px; }
+}
+
+/* ===========================
+   MATCH PAGE
+   =========================== */
+
+#match-mode-selector {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  /* background는 JS에서 인라인으로 덮어씀 (result 페이지와 동일한 동적 색) */
+}
+
+#match-mode-selector h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: var(--text-shadow);
+  margin-bottom: 36px;
+}
+
+.mode-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mode-card {
+  width: 280px;
+  padding: 32px 20px;
+  background: #ffffff;
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.15s, box-shadow 0.2s;
+  font-family: inherit;
+  color: #1a1a1a;
+}
+
+.mode-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.18);
+}
+
+.mode-card img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 14px;
+}
+
+.mode-card strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.mode-card p {
+  font-size: 13px;
+  color: #888;
+}
+
+@media (max-width: 600px) {
+  .mode-cards { flex-direction: column; align-items: center; }
+  .mode-card { width: 100%; max-width: 280px; }
 }
