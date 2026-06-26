@@ -4,34 +4,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>매칭 — RED&BLUE</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="match-page">
-    <nav class="navbar">
+  <nav class="navbar">
     <a href="index.html" class="nav-logo">
-        <img src="images/rnb_logo.png" alt="RED&BLUE 로고" />
-        <span class="nav-logo-text">RED&BLUE</span>
+      <img src="images/rnb_logo.png" alt="RED&BLUE 로고" />
+      <span class="nav-logo-text">RED&BLUE</span>
     </a>
     <a href="profile.html" class="nav-profile-icon hidden" id="nav-profile-icon">👤</a>
-    </nav>
+  </nav>
 
-    <div class="match-mode" id="match-mode-selector">
-      <h2>어떤 사람을 만나고 싶나요?<br>비슷한 성향 또는 반대 성향인 사람일수록 더 크게 표시돼요.</h2>
-      <div class="mode-cards">
-        <button class="mode-card" data-mode="similar">
-          <img src="images/similar.png" alt="비슷한 성향">
-          <strong>비슷한 성향</strong>
-          <p>나와 가까운 곳에 있는 사람</p>
-        </button>
-        <button class="mode-card" data-mode="opposite">
-          <img src="images/opposite.png" alt="반대 성향">
-          <strong>반대 성향</strong>
-          <p>극과 극은 통한다</p>
-        </button>
-      </div>
+  <!-- 모드 선택 화면 -->
+  <div class="match-mode" id="match-mode-selector">
+    <h2>어떤 사람을 만나고 싶나요?<br>편하게 골라보세요.</h2>
+    <div class="mode-cards">
+      <button class="mode-card" data-mode="similar">
+        <img src="images/similar.png" alt="비슷한 성향">
+        <strong>비슷한 성향</strong>
+        <p>나와 가까운 곳에 있는 사람</p>
+      </button>
+      <button class="mode-card" data-mode="opposite">
+        <img src="images/opposite.png" alt="반대 성향">
+        <strong>반대 성향</strong>
+        <p>극과 극은 통한다</p>
+      </button>
     </div>
+  </div>
 
-</body>
-<script type="module" src="js/match.js"></script>
+  <!-- 매칭+채팅 화면 -->
+  <div class="match-main hidden" id="match-main">
+    <div class="match-layout">
+
+      <!-- 왼쪽: 버블 영역 -->
+      <section class="bubble-panel">
+        <div class="bubble-panel-head">
+          <h3 id="bubble-title">대화할 사람 고르기</h3>
+          <button class="btn-outline small" id="btn-change-mode">방향 바꾸기</button>
+        </div>
+
+        <div class="bubble-area" id="bubble-area"></div>
+
+        <div class="bubble-detail hidden" id="bubble-detail">
+          <div class="detail-avatar" id="detail-avatar">🙂</div>
+          <div class="detail-name" id="detail-name"></div>
+          <div class="detail-meta" id="detail-meta"></div>
+          <div class="detail-label" id="detail-label"></div>
+          <p class="detail-bio" id="detail-bio"></p>
+          <button class="btn-primary full" id="btn-chat-request">청문회 시작</button>
+        </div>
+      </section>
+
+      <section class="chatlist-panel">
+        <h3>채팅</h3>
+        <div class="chatlist" id="chatlist">
+          <p class="chatlist-empty" id="chatlist-empty">아직 채팅방이 없어요.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script type="module" src="js/match.js"></script>
 </body>
 </html>
