@@ -93,3 +93,12 @@ document.getElementById('btn-signup').addEventListener('click', async () => {
     }
   }
 });
+
+// 강제 로그아웃
+window.addEventListener('keydown', async (e) => {
+  if (e.key === '1') {
+    alert('개발자모드: 1 입력됨. 로그아웃 실행');
+    await signOut(auth);
+    location.reload();
+  }
+});
