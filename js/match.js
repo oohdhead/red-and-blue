@@ -9,6 +9,7 @@ import { initProfileModal } from './profile-modal.js';
 let myUid = null;
 let myProfile = null;
 let matchUsers = [];
+let currentMode = 'similar';
 
 // 로그인 확인 후 내 프로필을 불러오고 이전 모드가 있으면 바로 매칭 화면으로 이동
 onAuthStateChanged(auth, async (user) => {
@@ -80,8 +81,54 @@ async function loadCandidates(mode) {
   }
 
   matchUsers = users.slice(0, 20);
-  renderBubbles(matchUsers, mode);
+  currentMode = mode;
+  renderBubbles(applyFilters(matchUsers), mode);
 }
+
+// 체크된 필터 조건으로 유저 목록 걸러내기
+function applyFilters(users) {
+  const 성향체크 = ['진보', '보수', '권위', '자유'].filter(t =>
+    document.getElementById(`filter-${t}`)?.checked
+  );
+  const 나이체크 = ['20', '30', '40'].filter(t =>
+    document.getElementById(`filter-age-${t}`)?.checked
+  );
+
+  return users.filter(u => {
+    if (성향체크.length > 0) {
+      const xTag = u.x < -0.2 ? '진보' : u.x > 0.2 ? '보수' : null;
+      const yTag = (u.y || 0) < -0.2 ? '권위' : (u.y || 0) > 0.2 ? '자유' : null;
+      const tags = [xTag, yTag].filter(Boolean);
+      if (!성향체크.some(t => tags.includes(t))) return false;
+    }
+    if (나이체크.length > 0) {
+      const age = u.age || 0;
+      const match = 나이체크.some(t =>
+        t === '20' ? age >= 20 && age < 30 :
+        t === '30' ? age >= 30 && age < 40 :
+        age >= 40
+      );
+      if (!match) return false;
+    }
+    return true;
+  });
+}
+
+// 필터 모달 열기/닫기 및 적용
+const filterOverlay = document.getElementById('filter-modal-overlay');
+document.getElementById('btn-filter').addEventListener('click', () => {
+  filterOverlay.classList.remove('hidden');
+});
+document.getElementById('filter-modal-close').addEventListener('click', () => {
+  filterOverlay.classList.add('hidden');
+});
+filterOverlay.addEventListener('click', (e) => {
+  if (e.target === filterOverlay) filterOverlay.classList.add('hidden');
+});
+document.getElementById('filter-apply').addEventListener('click', () => {
+  filterOverlay.classList.add('hidden');
+  renderBubbles(applyFilters(matchUsers), currentMode);
+});
 
 // x, y 좌표 값을 바탕으로 성향 이름 텍스트 반환
 function getLabel(x, y) {

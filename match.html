@@ -42,7 +42,10 @@
       <section class="bubble-panel">
         <div class="bubble-panel-head">
           <h3 id="bubble-title">대화할 사람 고르기</h3>
-          <button class="btn-outline small" id="btn-change-mode">방향 바꾸기</button>
+          <div class="bubble-head-buttons">
+            <button class="btn-outline small" id="btn-filter">필터</button>
+            <button class="btn-outline small" id="btn-change-mode">방향 바꾸기</button>
+          </div>
         </div>
 
         <div class="bubble-area" id="bubble-area"></div>
@@ -68,6 +71,35 @@
         </div>
       </section>
 
+    </div>
+  </div>
+
+  <!-- 필터 모달 -->
+  <div class="filter-modal-overlay hidden" id="filter-modal-overlay">
+    <div class="filter-modal">
+      <button class="modal-close" id="filter-modal-close">✕</button>
+      <h3 class="filter-modal-title">필터</h3>
+
+      <div class="filter-section">
+        <div class="filter-section-title">성향</div>
+        <div class="filter-options">
+          <label class="filter-option"><input type="checkbox" id="filter-진보"> 진보</label>
+          <label class="filter-option"><input type="checkbox" id="filter-보수"> 보수</label>
+          <label class="filter-option"><input type="checkbox" id="filter-권위"> 권위</label>
+          <label class="filter-option"><input type="checkbox" id="filter-자유"> 자유</label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-section-title">나이</div>
+        <div class="filter-options">
+          <label class="filter-option"><input type="checkbox" id="filter-age-20"> 20대</label>
+          <label class="filter-option"><input type="checkbox" id="filter-age-30"> 30대</label>
+          <label class="filter-option"><input type="checkbox" id="filter-age-40"> 40대 이상</label>
+        </div>
+      </div>
+
+      <button class="btn-primary full" id="filter-apply">적용하기</button>
     </div>
   </div>
 

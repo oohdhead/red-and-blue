@@ -65,7 +65,7 @@ body {
 }
 .btn-outline:hover { border-color: var(--text-muted); }
 .btn-outline.full { width: 100%; text-align: center; margin-top: 8px; }
-.btn-outline.small { padding: 6px 16px; font-size: 13px; }
+.btn-outline.small { padding: 6px 16px; font-size: 13px; color: #888;}
 .btn-outline.mt { margin-top: 16px; }
 
 /* ===========================
@@ -800,6 +800,77 @@ body {
 
 @media (max-width: 760px) {
   .match-layout { flex-direction: column; }
+}
+
+.bubble-head-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.filter-modal {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  width: 90%;
+  max-width: 340px;
+  position: relative;
+}
+
+.filter-modal-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 24px;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #1a1a1a;
+  cursor: pointer;
+  padding: 6px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 20px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.filter-option:has(input:checked) {
+  border-color: #977EFF;
+  background: #f0e9ff;
+  color: #7b5ea7;
+}
+
+.filter-option input {
+  display: none;
 }
 
 /* ===========================
