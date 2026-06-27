@@ -1,6 +1,7 @@
 import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { setupModalClose } from './utils.js';
 
 // x, y 좌표로 성향 이름 반환
 function getCompassLabel(x, y) {
@@ -18,7 +19,7 @@ export function initProfileModal() {
   if (!icon) return;
 
   document.body.insertAdjacentHTML('beforeend', `
-    <div class="profile-modal-overlay hidden" id="profile-modal-overlay">
+    <div class="modal-overlay hidden" id="profile-modal-overlay">
       <div class="profile-modal">
         <button class="modal-close" id="modal-close">✕</button>
         <div class="profile-modal-avatar" id="modal-avatar">?</div>
@@ -104,13 +105,8 @@ export function initProfileModal() {
     dot.style.top  = `${((-y + 1) / 2) * 100}%`;
   });
 
-  // 닫기 버튼 클릭 시 모달 닫기
-  closeBtn.addEventListener('click', () => overlay.classList.add('hidden'));
-
-  // 모달 바깥 영역 클릭 시 모달 닫기
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.classList.add('hidden');
-  });
+  // 닫기 버튼 및 오버레이 클릭으로 모달 닫기
+  setupModalClose(overlay, closeBtn);
 
   // 저장 버튼 클릭 시 입력된 프로필 정보를 Firestore에 저장
   saveBtn.addEventListener('click', async () => {

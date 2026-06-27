@@ -3,7 +3,7 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/f
 import {
   collection, getDocs, doc, getDoc, updateDoc, setDoc, query, where, onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-import { getCompassColor, toggleNavIcon } from './utils.js';
+import { getCompassColor, toggleNavIcon, setupModalClose } from './utils.js';
 import { initProfileModal } from './profile-modal.js';
 
 let myUid = null;
@@ -125,12 +125,7 @@ const filterOverlay = document.getElementById('filter-modal-overlay');
 document.getElementById('btn-filter').addEventListener('click', () => {
   filterOverlay.classList.remove('hidden');
 });
-document.getElementById('filter-modal-close').addEventListener('click', () => {
-  filterOverlay.classList.add('hidden');
-});
-filterOverlay.addEventListener('click', (e) => {
-  if (e.target === filterOverlay) filterOverlay.classList.add('hidden');
-});
+setupModalClose(filterOverlay, document.getElementById('filter-modal-close'));
 document.getElementById('filter-apply').addEventListener('click', () => {
   filterOverlay.classList.add('hidden');
   renderBubbles(applyFilters(matchUsers), currentMode);

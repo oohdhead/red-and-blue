@@ -20,14 +20,14 @@ const questions = [
 ];
 // reverse : 찬성할 수록 반대쪽
 
-let uid = null; //userid
+let uid = null;
 const answers = new Array(questions.length).fill(null);
 
 // 로그인 확인 후 설문 화면 렌더링 시작
 onAuthStateChanged(auth, (user) => {
   toggleNavIcon(user);
   
-  if (!user) { window.location.href = 'auth.html'; return; } // 로그인 안했으면
+  if (!user) { window.location.href = 'auth.html'; return; }
   uid = user.uid;
   renderQuestions();
 });

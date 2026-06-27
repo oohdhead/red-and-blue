@@ -14,3 +14,11 @@ export function toggleNavIcon(user) {
   const icon = document.getElementById('nav-profile-icon');
   if (icon) icon.classList.toggle('hidden', !user);
 }
+
+// 닫기 버튼과 오버레이 클릭으로 모달 닫기 이벤트 연결
+export function setupModalClose(overlayEl, closeEl) {
+  closeEl.addEventListener('click', () => overlayEl.classList.add('hidden'));
+  overlayEl.addEventListener('click', (e) => {
+    if (e.target === overlayEl) overlayEl.classList.add('hidden');
+  });
+}
