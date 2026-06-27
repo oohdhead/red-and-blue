@@ -704,7 +704,7 @@ body {
 }
 
 .detail-placeholder {
-  font-size: 13px;
+  font-size: 15px;
   color: #bbb;
 }
 
@@ -756,7 +756,7 @@ body {
 }
 
 .chatlist-empty {
-  font-size: 13px;
+  font-size: 15px;
   color: #999;
   text-align: center;
   padding: 40px 0;
@@ -886,7 +886,7 @@ body.chat-page {
 
 .chat-navbar {
   border-bottom: 1px solid #ececec;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .chat-partner-name {

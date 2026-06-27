@@ -1,8 +1,8 @@
 import { auth, db, rtdb } from './firebase-config.js';
 import { initProfileModal } from './profile-modal.js';
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-database.js";
-import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+import { doc, updateDoc, arrayRemove } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const params      = new URLSearchParams(location.search);
 const chatId      = params.get('chatId');
@@ -66,6 +66,17 @@ async function sendMessage() {
   input.value = '';
 }
 
+// 채팅방을 나가고 내 members 목록에서 제거 후 창 닫기
+async function leaveChat() {
+  if (!confirm('채팅방을 나가시겠어요?')) return;
+  await updateDoc(doc(db, 'chats', chatId), {
+    members: arrayRemove(myUid)
+  });
+  window.close();
+}
+
+// 나가기 버튼 클릭 시 채팅방 나가기
+document.getElementById('btn-leave-chat').addEventListener('click', leaveChat);
 // 전송 버튼 클릭 시 메시지 전송
 document.getElementById('btn-send').addEventListener('click', sendMessage);
 // 입력창에서 Enter 키 입력 시 메시지 전송

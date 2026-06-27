@@ -93,6 +93,9 @@ function applyFilters(users) {
   const 나이체크 = ['20', '30', '40'].filter(t =>
     document.getElementById(`filter-age-${t}`)?.checked
   );
+  const 성별체크 = ['male', 'female'].filter(t =>
+    document.getElementById(`filter-gender-${t}`)?.checked
+  );
 
   return users.filter(u => {
     if (성향체크.length > 0) {
@@ -109,6 +112,9 @@ function applyFilters(users) {
         age >= 40
       );
       if (!match) return false;
+    }
+    if (성별체크.length > 0) {
+      if (!성별체크.includes(u.gender)) return false;
     }
     return true;
   });
