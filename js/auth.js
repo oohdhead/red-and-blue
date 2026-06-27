@@ -84,7 +84,6 @@ document.getElementById('btn-signup').addEventListener('click', async () => {
     const cred = await createUserWithEmailAndPassword(auth, email, password);
     await setDoc(doc(db, 'users', cred.user.uid), {
       nickname, age, gender, bio,
-      showCompass: true,
       createdAt: Date.now()
     });
     alert('계정이 생성되었습니다');
