@@ -2,6 +2,7 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
+// 프로필 모달 HTML을 동적으로 삽입하고 모든 이벤트 연결
 export function initProfileModal() {
   const icon = document.getElementById('nav-profile-icon');
   if (!icon) return;
@@ -49,6 +50,7 @@ export function initProfileModal() {
     currentUid = user ? user.uid : null;
   });
 
+  // 프로필 아이콘 클릭 시 모달을 열고 내 프로필 데이터 채우기
   icon.addEventListener('click', async () => {
     overlay.classList.remove('hidden');
     if (!currentUid) return;
@@ -64,12 +66,15 @@ export function initProfileModal() {
     document.getElementById('modal-edit-bio').value       = data.bio || '';
   });
 
+  // 닫기 버튼 클릭 시 모달 닫기
   closeBtn.addEventListener('click', () => overlay.classList.add('hidden'));
 
+  // 모달 바깥 영역 클릭 시 모달 닫기
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) overlay.classList.add('hidden');
   });
 
+  // 저장 버튼 클릭 시 입력된 프로필 정보를 Firestore에 저장
   saveBtn.addEventListener('click', async () => {
     if (!currentUid) return;
     const nickname = document.getElementById('modal-edit-nickname').value.trim();
@@ -84,6 +89,7 @@ export function initProfileModal() {
     alert('저장되었습니다');
   });
 
+  // 로그아웃 버튼 클릭 시 Firebase 세션 종료 후 랜딩 페이지로 이동
   logoutBtn.addEventListener('click', async () => {
     await signOut(auth);
     window.location.href = 'index.html';

@@ -9,6 +9,7 @@ export function getCompassColor(x) {
   return `rgb(${r},${g},${b})`;
 }
 
+// 로그인 여부에 따라 프로필 아이콘 표시 또는 숨기기
 export function toggleNavIcon(user) {
   const icon = document.getElementById('nav-profile-icon');
   if (icon) icon.classList.toggle('hidden', !user);

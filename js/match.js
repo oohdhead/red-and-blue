@@ -10,6 +10,7 @@ let myUid = null;
 let myProfile = null;
 let matchUsers = [];
 
+// 로그인 확인 후 내 프로필을 불러오고 이전 모드가 있으면 바로 매칭 화면으로 이동
 onAuthStateChanged(auth, async (user) => {
   toggleNavIcon(user);
 
@@ -29,7 +30,7 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-// 모드 선택 버튼
+// 비슷한 성향 또는 반대 성향 카드를 클릭하면 모드를 저장하고 매칭 화면으로 전환
 document.querySelectorAll('.mode-card').forEach(card => {
   card.addEventListener('click', async () => {
     const mode = card.dataset.mode; // 'similar' or 'opposite'
@@ -39,11 +40,13 @@ document.querySelectorAll('.mode-card').forEach(card => {
   });
 });
 
+// 방향 바꾸기 버튼 클릭 시 모드 선택 화면으로 돌아가기
 document.getElementById('btn-change-mode').addEventListener('click', () => {
   document.getElementById('match-main').classList.add('hidden');
   document.getElementById('match-mode-selector').classList.remove('hidden');
 });
 
+// 모드 선택 화면을 숨기고 버블 및 채팅 목록 화면 표시
 async function showMatchMain(mode) {
   document.getElementById('match-mode-selector').classList.add('hidden');
   document.getElementById('match-main').classList.remove('hidden');
@@ -53,7 +56,7 @@ async function showMatchMain(mode) {
   listenChatList();
 }
 
-// 매칭 후보 불러오기 (상위 20명) 
+// 전체 유저 목록에서 나와의 성향 거리를 계산하고 가깝거나 먼 순으로 상위 20명 추출
 async function loadCandidates(mode) {
   const snapshot = await getDocs(collection(db, 'users'));
   let users = [];
@@ -80,6 +83,7 @@ async function loadCandidates(mode) {
   renderBubbles(matchUsers, mode);
 }
 
+// x, y 좌표 값을 바탕으로 성향 이름 텍스트 반환
 function getLabel(x, y) {
   if (x < -0.3 && y < -0.3) return '진보적 자유주의자';
   if (x < -0.3 && y >  0.3) return '권위적 진보주의자';
@@ -88,11 +92,12 @@ function getLabel(x, y) {
   return '중도주의자';
 }
 
+// 성별 코드를 한국어 텍스트로 변환
 function genderLabel(g) {
   return g === 'male' ? '남성' : g === 'female' ? '여성' : '기타';
 }
 
-// 버블 렌더링 
+// 매칭 후보들을 성향에 따른 색상과 거리에 따른 크기로 버블 그리기
 function renderBubbles(users, mode) {
   const area = document.getElementById('bubble-area');
   area.innerHTML = '';
@@ -153,7 +158,7 @@ function selectUser(u, bubbleEl) {
   document.getElementById('btn-chat-request').onclick = () => requestChat(u);
 }
 
-// 채팅 신청 (버튼 눌렀을 때만 방 생성)
+// 청문회 시작 버튼 클릭 시 채팅방을 생성하고 채팅 페이지를 새 탭으로 열기
 async function requestChat(u) {
   const chatId = [myUid, u.uid].sort().join('_');
 
@@ -171,7 +176,7 @@ async function requestChat(u) {
   window.open(`chat.html?chatId=${chatId}&partner=${encodeURIComponent(u.nickname || '익명')}`, '_blank');
 }
 
-// ===== 채팅목록 실시간 구독 =====
+// 내가 속한 채팅방 목록을 실시간으로 감시하여 화면에 표시
 function listenChatList() {
   const q = query(collection(db, 'chats'), where('members', 'array-contains', myUid));
 

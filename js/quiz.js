@@ -23,6 +23,7 @@ const questions = [
 let uid = null; //userid
 const answers = new Array(questions.length).fill(null);
 
+// 로그인 확인 후 설문 화면 렌더링 시작
 onAuthStateChanged(auth, (user) => {
   toggleNavIcon(user);
   
@@ -77,7 +78,7 @@ function renderQuestions() {
   });
 }
 
-// 제출 버튼
+// 결과 보기 버튼 클릭 시 답변 검증 후 점수 계산하여 Firestore에 저장하고 결과 페이지로 이동
 document.getElementById('btn-submit').addEventListener('click', async () => {
   const warning = document.getElementById('quiz-warning');
 

@@ -12,12 +12,14 @@ document.getElementById('partner-name').textContent = decodeURIComponent(partner
 
 let myUid = null;
 
+// 로그인 확인 후 메시지 실시간 감시 시작
 onAuthStateChanged(auth, (user) => {
   if (!user) { window.location.href = 'auth.html'; return; }
   myUid = user.uid;
   listenMessages();
 });
 
+// 채팅방의 새 메시지를 실시간으로 받아 화면에 표시
 function listenMessages() {
   const msgRef = ref(rtdb, `chats/${chatId}/messages`);
   onChildAdded(msgRef, (snap) => {
@@ -25,6 +27,7 @@ function listenMessages() {
   });
 }
 
+// 메시지 하나를 말풍선 형태로 화면에 추가
 function renderMessage(msg) {
   const container = document.getElementById('chat-messages');
   const isMine = msg.sender === myUid;
@@ -41,6 +44,7 @@ function renderMessage(msg) {
   container.scrollTop = container.scrollHeight;
 }
 
+// 입력창의 텍스트를 Realtime Database에 저장하고 채팅 목록 마지막 메시지 갱신
 async function sendMessage() {
   const input = document.getElementById('chat-input');
   const text  = input.value.trim();
@@ -62,7 +66,9 @@ async function sendMessage() {
   input.value = '';
 }
 
+// 전송 버튼 클릭 시 메시지 전송
 document.getElementById('btn-send').addEventListener('click', sendMessage);
+// 입력창에서 Enter 키 입력 시 메시지 전송
 document.getElementById('chat-input').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') sendMessage();
 });

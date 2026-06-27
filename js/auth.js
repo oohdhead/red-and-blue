@@ -25,12 +25,12 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-// 탭 전환
 const tabLogin  = document.getElementById('tab-login');
 const tabSignup = document.getElementById('tab-signup');
 const formLogin  = document.getElementById('form-login');
 const formSignup = document.getElementById('form-signup');
 
+// 로그인 탭으로 전환하기
 tabLogin.addEventListener('click', () => {
   tabLogin.classList.add('active');
   tabSignup.classList.remove('active');
@@ -38,6 +38,7 @@ tabLogin.addEventListener('click', () => {
   formSignup.classList.add('hidden');
 });
 
+// 회원가입 탭으로 전환하기
 tabSignup.addEventListener('click', () => {
   tabSignup.classList.add('active');
   tabLogin.classList.remove('active');
@@ -50,7 +51,7 @@ if (new URLSearchParams(location.search).get('tab') === 'signup') {
   tabSignup.click();
 }
 
-// 로그인 탭
+// 이메일과 비밀번호로 로그인 시도
 document.getElementById('btn-login').addEventListener('click', async () => {
   const email    = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
@@ -64,7 +65,7 @@ document.getElementById('btn-login').addEventListener('click', async () => {
   }
 });
 
-// 회원가입 탭
+// 입력 정보 검증 후 Firebase 계정 생성 및 Firestore에 유저 문서 저장
 document.getElementById('btn-signup').addEventListener('click', async () => {
   const email    = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value;
