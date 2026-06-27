@@ -1,5 +1,5 @@
 import { auth, db } from './firebase-config.js';
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import {
   collection, getDocs, doc, getDoc, updateDoc, setDoc, query, where, onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
@@ -113,10 +113,10 @@ function renderBubbles(users, mode) {
       ? 1 - (u.distance - minDist) / (maxDist - minDist + 0.01)
       : (u.distance - minDist) / (maxDist - minDist + 0.01);
 
-    const size = 56 + ratio * 36; // 56 ~ 92px
+    const size = 72 + ratio * 44; // 72 ~ 116px
 
     const angle  = (i / users.length) * 2 * Math.PI + (i * 0.37);
-    const radius = 60 + (i % 5) * 28;
+    const radius = 85 + (i % 5) * 42;
     const cx = W / 2 + Math.cos(angle) * radius;
     const cy = H / 2 + Math.sin(angle) * radius;
 
@@ -140,10 +140,8 @@ function renderBubbles(users, mode) {
 function selectUser(u, bubbleEl) {
   document.querySelectorAll('.bubble-item').forEach(b => {
     b.classList.remove('selected');
-    b.style.zIndex = '';
   });
   bubbleEl.classList.add('selected');
-  bubbleEl.style.zIndex = '10';
 
   document.getElementById('detail-placeholder').classList.add('hidden');
   document.getElementById('detail-content').classList.remove('hidden');
@@ -215,15 +213,5 @@ function listenChatList() {
     });
   });
 }
-
-// 강제 로그아웃
-window.addEventListener('keydown', async (e) => {
-  if (e.key === 'F1') {
-    e.preventDefault();
-    alert('개발자모드: F1 입력됨. 로그아웃 실행');
-    await signOut(auth);
-    window.location.href = 'index.html';
-  }
-});
 
 initProfileModal();
