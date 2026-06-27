@@ -129,8 +129,10 @@ function renderBubbles(users, mode) {
       left: ${Math.max(size/2, Math.min(W - size/2, cx)) - size/2}px;
       top:  ${Math.max(size/2, Math.min(H - size/2, cy)) - size/2}px;
       background: ${getCompassColor(u.x)};
+      animation-delay: ${i * 0.04}s;
     `;
     bubble.innerHTML = `<span>${u.nickname || '익명'}</span>`;
+    bubble.addEventListener('animationend', () => { bubble.style.animation = 'none'; });
     bubble.addEventListener('click', () => selectUser(u, bubble));
     area.appendChild(bubble);
   });

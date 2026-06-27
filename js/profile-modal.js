@@ -95,6 +95,11 @@ export function initProfileModal() {
     const y = data.y || 0;
     document.getElementById('modal-compass-label').textContent = `당신은 ${getCompassLabel(x, y)}주의자`;
     const dot = document.getElementById('modal-compass-dot');
+    dot.style.transition = 'none';
+    dot.style.left = '50%';
+    dot.style.top  = '50%';
+    dot.getBoundingClientRect(); // 강제 리플로우로 리셋 즉시 반영
+    dot.style.transition = '';
     dot.style.left = `${((x + 1) / 2) * 100}%`;
     dot.style.top  = `${((-y + 1) / 2) * 100}%`;
   });
